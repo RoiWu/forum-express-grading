@@ -3,19 +3,20 @@ const adminController = require('../controllers/adminController.js')
 const userController = require('../controllers/userController.js')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
+const helplers = require('../_helpers')
 
 module.exports = (app, passport) => {
 
   // check the auth
   const authenticated = (req, res, next) => {
-    if (req.isAuthenticated()) {
+    if (helplers.ensureAuthenticated(req)) {
       return next()
     }
     res.redirect('/signin')
   }
   const authenticatedAdmin = (req, res, next) => {
-    if (req.isAuthenticated()) {
-      if (req.user.isAdmin) { return next() }
+    if (helplers.ensureAuthenticated(req)) {
+      if (helplers.getUser(req).isAdmin) { return next() }
       return res.redirect('/')
     }
     res.redirect('/signin')
