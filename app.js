@@ -12,7 +12,7 @@ if (process.env.NODE_ENV !== 'production') {
 
 const db = require('./models') // 引入資料庫
 const app = express()
-const port = 3000
+const port = process.env.PORT || 3000
 
 app.use('/upload', express.static(__dirname + '/upload'))
 app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs' })) // Handlebars 註冊樣板引擎
