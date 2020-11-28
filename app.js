@@ -6,6 +6,10 @@ const session = require('express-session')
 const passport = require('./config/passport')
 const methodOverride = require('method-override')
 
+if (process.env.NODE_ENV !== 'production') {
+  require('dotenv').config()
+}
+
 const db = require('./models') // 引入資料庫
 const app = express()
 const port = 3000
