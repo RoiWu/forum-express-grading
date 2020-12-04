@@ -25,11 +25,17 @@
       <td>{{this.email}}</td>
       {{#if this.isAdmin}}
       <td>admin</td>
+
+      {{#ifcond this.email "===" ../user.email}}
+      <td>you can't change yourself...</td>
+      {{else}}
       <td>
         <form action="/admin/users/{{this.id}}/toggleAdmin?_method=PUT" method="POST">
           <button type="submit" class="btn btn-link">set as user</button>
         </form>
       </td>
+      {{/ifcond}}
+
       {{else}}
       <td>user</td>
       <td>
