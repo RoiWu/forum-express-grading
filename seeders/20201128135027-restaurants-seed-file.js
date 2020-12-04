@@ -2,6 +2,7 @@
 const faker = require('faker')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
+    await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
     await queryInterface.bulkInsert('Restaurants',
       Array.from({ length: 50 }).map((d, i) =>
         ({
@@ -12,12 +13,16 @@ module.exports = {
           image: `https://loremflickr.com/320/240/restaurant,food/?random=${Math.random() * 100}`,
           description: faker.lorem.text(),
           createdAt: new Date(),
-          updatedAt: new Date()
+          updatedAt: new Date(),
+          CategoryId: Math.floor(Math.random() * 6) * 10 + 1 // 加上這行
         })
       ), {})
+    await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
   },
 
   down: async (queryInterface, Sequelize) => {
+    await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
     await queryInterface.bulkDelete('Restaurants', null, {})
+    await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
   }
 };
