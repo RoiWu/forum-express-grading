@@ -55,6 +55,19 @@ const userController = {
     req.logout()
     res.redirect('/signin')
   },
+
+  //////////////
+  //Profile
+  //////////////
+  getUser: (req, res) => {
+    return User.findByPk(req.params.id)
+      .then(profileuser => {
+        console.log(profileuser.toJSON())
+        return res.render('userprofile', {
+          profileuser: profileuser.toJSON(),
+        })
+      })
+  },
 }
 
 module.exports = userController
