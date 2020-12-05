@@ -71,17 +71,15 @@ const userController = {
       })
   },
 
-  editUser: (req, res) => {
-    return User.findByPk(req.params.id)
-      .then(profileuser => {
-        if (Number(req.user.id) !== Number(req.params.id)) {
-          return res.redirect(`/users/${req.params.id}`)
-        } else {
-          return res.render('userprofile_edit', {
-            profileuser: profileuser.toJSON(),
-          })
-        }
-      })
+  editUser: async (req, res, next) => {
+    try {
+      let profileuser = await User.findByPk(req.params.id)
+      profileuser = profileuser.toJSON()
+      res.render('userprofile_edit', { profileuser })
+    } catch (err) {
+      console.log(err)
+      next(err)
+    }
   },
 
   putUser: (req, res) => {

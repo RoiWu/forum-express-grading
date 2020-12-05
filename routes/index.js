@@ -7,23 +7,24 @@ const commentController = require('../controllers/commentController.js')
 const multer = require('multer')
 const upload = multer({ dest: 'temp/' })
 const helplers = require('../_helpers')
+const { authenticated, authenticatedAdmin, isOwnProfile, editOwnProfile } = require('../middleware/check-auth')
 
 module.exports = (app, passport) => {
-
-  // check the auth
-  const authenticated = (req, res, next) => {
-    if (helplers.ensureAuthenticated(req)) {
-      return next()
+  /*
+    // check the auth
+    const authenticated = (req, res, next) => {
+      if (helplers.ensureAuthenticated(req)) {
+        return next()
+      }
+      res.redirect('/signin')
     }
-    res.redirect('/signin')
-  }
-  const authenticatedAdmin = (req, res, next) => {
-    if (helplers.ensureAuthenticated(req)) {
-      if (helplers.getUser(req).isAdmin) { return next() }
-      return res.redirect('/')
-    }
-    res.redirect('/signin')
-  }
+    const authenticatedAdmin = (req, res, next) => {
+      if (helplers.ensureAuthenticated(req)) {
+        if (helplers.getUser(req).isAdmin) { return next() }
+        return res.redirect('/')
+      }
+      res.redirect('/signin')
+    }*/
 
   //user 
   app.get('/', authenticated, (req, res) => res.redirect('/restaurants'))
@@ -32,6 +33,8 @@ module.exports = (app, passport) => {
   app.post('/comments', authenticated, commentController.postComment)
   app.delete('/comments/:id', authenticated, commentController.deleteComment)
 
+  //app.get('/users/:id', authenticated, isOwnProfile, userController.getUser)
+  //app.get('/users/:id/edit', authenticated, editOwnProfile, userController.editUser)
   app.get('/users/:id', authenticated, userController.getUser)
   app.get('/users/:id/edit', authenticated, userController.editUser)
   app.put('/users/:id', authenticated, upload.single('image'), userController.putUser)
