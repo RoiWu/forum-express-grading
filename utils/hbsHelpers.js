@@ -1,3 +1,5 @@
+const moment = require('moment')
+
 module.exports = {
   ifcond: function (v1, operator, v2, options) {
     switch (operator) {
@@ -24,5 +26,9 @@ module.exports = {
       default:
         return options.inverse(this);
     }
+  },
+
+  moment: function (a) {
+    return moment(a).fromNow()
   }
 }
