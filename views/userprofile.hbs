@@ -9,7 +9,7 @@
         <li>{{profileuser.email}}</li>
       </ul>
       {{#ifcond user.id "===" profileuser.id}}
-      <a href='/user/{{profileuser.id}}/edit'>
+      <a href='/users/{{profileuser.id}}/edit'>
         <button type="button" class="btn btn-primary">edit</button>
       </a>
       {{/ifcond}}
