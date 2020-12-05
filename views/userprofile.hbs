@@ -8,11 +8,11 @@
         <li><strong>{{profileuser.name}}</strong></li>
         <li>{{profileuser.email}}</li>
       </ul>
-      {{#ifcond user.id "===" profileuser.id}}
+      {{#if isOwnProfile}}
       <a href='/users/{{profileuser.id}}/edit'>
         <button type="button" class="btn btn-primary">edit</button>
       </a>
-      {{/ifcond}}
+      {{/if}}
     </div>
   </div>
 </div>
