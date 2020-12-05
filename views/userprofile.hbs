@@ -1,0 +1,21 @@
+<div class="row">
+  <div class="col-md-12">
+    <div class="col-md-4">
+      <img class="img-responsive center-block rounded-circle" src="{{profileuser.image}}"
+        style="width: 250px;margin-bottom: 25px;">
+    </div>
+    <div class="col-md-8">
+      <div class="well">
+        <ul class="list-unstyled">
+          <li><strong>{{profileuser.name}}</strong></li>
+          <li>{{profileuser.email}}</li>
+        </ul>
+        {{#ifcond user.id "===" profileuser.id}}
+        <a href='/user/{{profileuser.id}}/edit'>
+          <button type="button" class="btn btn-primary">edit</button>
+        </a>
+        {{/ifcond}}
+      </div>
+    </div>
+  </div>
+</div>
