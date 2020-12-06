@@ -137,7 +137,7 @@ const restController = {
       }))
       // 依喜愛者人數排序清單
       restaurants = restaurants.sort((a, b) => b.FavoritedUsersCount - a.FavoritedUsersCount).slice(0, 10)
-      return res.render('TopRestaurant', { restaurants: restaurants })
+      return res.render('topRestaurant', { restaurants: restaurants })
     })
   },
 
