@@ -6,7 +6,7 @@ module.exports = {
     await queryInterface.bulkInsert('Comments',
       Array.from({ length: 50 }).map((d, i) =>
         ({
-          id: (i - 1) * 10 + 1,
+          id: i * 10 + 1,
           text: faker.lorem.text().substring(0, 20),
           UserId: Math.floor(Math.random() * 3) * 10 + 1,
           RestaurantId: Math.floor(Math.random() * 50) * 10 + 1,

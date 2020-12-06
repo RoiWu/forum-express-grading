@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row bg-white">
   <div class="col-md-4">
     <img class="img-responsive center-block" src="{{profileuser.image}}" style="width: 250px;margin-bottom: 25px;">
   </div>
@@ -7,6 +7,7 @@
       <ul class="list-unstyled">
         <li><strong>{{profileuser.name}}</strong></li>
         <li>{{profileuser.email}}</li>
+        <li class="mt-2"><strong>{{profileuser.Comments.length}}</strong>已評論餐廳</li>
       </ul>
       {{#if isOwnProfile}}
       <a href='/users/{{profileuser.id}}/edit'>
@@ -14,5 +15,16 @@
       </a>
       {{/if}}
     </div>
+  </div>
+</div>
+<br>
+<div class="row border border-secondary bg-light p-1">
+  <div class="col-md-12 mt-3 mb-1"><strong>{{profileuser.Comments.length}}</strong>已評論餐廳</div>
+  <div class="col-md-12 mb-3 p-2 bg-white">
+    {{#each profileuser.Comments}}
+    <a href='/restaurants/{{this.RestaurantId}}'>
+      <img class="img-responsive center-block" src="{{this.Restaurant.image}}" style="width: 80px;margin-bottom: 5px;">
+    </a>
+    {{/each}}
   </div>
 </div>
