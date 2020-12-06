@@ -10,25 +10,10 @@ const helplers = require('../_helpers')
 const { authenticated, authenticatedAdmin, isOwnProfile, editOwnProfile } = require('../middleware/check-auth')
 
 module.exports = (app, passport) => {
-  /*
-    // check the auth
-    const authenticated = (req, res, next) => {
-      if (helplers.ensureAuthenticated(req)) {
-        return next()
-      }
-      res.redirect('/signin')
-    }
-    const authenticatedAdmin = (req, res, next) => {
-      if (helplers.ensureAuthenticated(req)) {
-        if (helplers.getUser(req).isAdmin) { return next() }
-        return res.redirect('/')
-      }
-      res.redirect('/signin')
-    }*/
-
   //user 
   app.get('/', authenticated, (req, res) => res.redirect('/restaurants'))
   app.get('/restaurants', authenticated, restController.getRestaurants)
+  app.get('/restaurants/feeds', authenticated, restController.getFeeds)
   app.get('/restaurants/:id', authenticated, restController.getRestaurant)
   app.post('/comments', authenticated, commentController.postComment)
   app.delete('/comments/:id', authenticated, commentController.deleteComment)
