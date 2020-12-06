@@ -114,7 +114,33 @@ const restController = {
           })
         })
     })
-  }
+  },
+
+  //////////////
+  //Restaurant Expert
+  //////////////
+  getTopRestaurant: (req, res) => {
+    // 撈出所有 User 與 followers 資料
+    return Restaurant.findAll({
+      include: [
+        { model: User, as: 'FavoritedUsers' }
+      ]
+    }).then(restaurants => {
+      // 整理 restaurants 資料
+      restaurants = restaurants.map(restaurant => ({
+        ...restaurant.dataValues,
+        description: restaurant.description.substring(0, 50),
+        // 計算喜愛者人數
+        FavoritedUsersCount: restaurant.FavoritedUsers.length,
+        // 判斷目前登入使用者是否已將Restaurant加入我的最愛
+        isFavorited: restaurant.FavoritedUsers.map(d => d.id).includes(req.user.id)
+      }))
+      // 依喜愛者人數排序清單
+      restaurants = restaurants.sort((a, b) => b.FavoritedUsersCount - a.FavoritedUsersCount).slice(0, 10)
+      return res.render('TopRestaurant', { restaurants: restaurants })
+    })
+  },
+
 }
 
 module.exports = restController
