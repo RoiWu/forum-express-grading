@@ -88,7 +88,20 @@ const restController = {
         comments: comments
       })
     })
-  }
+  },
+
+  getDashborad: (req, res) => {
+    return Restaurant.findByPk(req.params.id, {
+      include: [
+        Category,
+        Comment
+      ]
+    }).then(restaurant => {
+      return res.render('dashboard_restaurant', {
+        restaurant: restaurant.toJSON(),
+      })
+    })
+  },
 
 }
 
