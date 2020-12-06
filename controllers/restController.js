@@ -97,12 +97,16 @@ const restController = {
         Comment
       ]
     }).then(restaurant => {
-      return res.render('dashboard_restaurant', {
-        restaurant: restaurant.toJSON(),
+      restaurant.update({
+        viewCounts: restaurant.viewCounts + 1
       })
+        .then(restaurant => {
+          return res.render('dashboard_restaurant', {
+            restaurant: restaurant.toJSON(),
+          })
+        })
     })
-  },
-
+  }
 }
 
 module.exports = restController
