@@ -3,19 +3,15 @@ const faker = require('faker')
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
-    await queryInterface.bulkInsert('Restaurants',
+    await queryInterface.bulkInsert('Comments',
       Array.from({ length: 50 }).map((d, i) =>
         ({
           id: (i - 1) * 10 + 1,
-          name: faker.name.findName(),
-          tel: faker.phone.phoneNumber(),
-          address: faker.address.streetAddress(),
-          opening_hours: '08:00',
-          image: `https://loremflickr.com/320/240/restaurant,food/?random=${Math.random() * 100}`,
-          description: faker.lorem.text(),
+          text: faker.lorem.text().substring(0, 20),
+          UserId: Math.floor(Math.random() * 3) * 10 + 1,
+          RestaurantId: Math.floor(Math.random() * 50) * 10 + 1,
           createdAt: new Date(),
-          updatedAt: new Date(),
-          CategoryId: Math.floor(Math.random() * 6) * 10 + 1 // 加上這行
+          updatedAt: new Date()
         })
       ), {})
     await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
@@ -23,7 +19,7 @@ module.exports = {
 
   down: async (queryInterface, Sequelize) => {
     await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 0');
-    await queryInterface.bulkDelete('Restaurants', null, {})
+    await queryInterface.bulkDelete('Comments', null, {})
     await queryInterface.sequelize.query('SET FOREIGN_KEY_CHECKS = 1');
   }
 };
