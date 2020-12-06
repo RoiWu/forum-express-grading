@@ -7,24 +7,73 @@
       <ul class="list-unstyled">
         <li><strong>{{profileuser.name}}</strong></li>
         <li>{{profileuser.email}}</li>
-        <li class="mt-2"><strong>{{profileuser.Comments.length}}</strong>已評論餐廳</li>
+        <li class="mt-2"><strong>{{profileuser.Comments.length}}</strong> 已評論餐廳</li>
+        <li class="mt-2"><strong>{{profileuser.FavoritedRestaurants.length}}</strong> 收藏的餐廳</li>
+        <li class="mt-2"><strong>{{profileuser.Followings.length}}</strong> followings (追蹤者)</li>
+        <li class="mt-2"><strong>{{profileuser.Followers.length}}</strong> followers (追隨者)</li>
       </ul>
       {{#if isOwnProfile}}
       <a href='/users/{{profileuser.id}}/edit'>
         <button type="button" class="btn btn-primary">edit</button>
       </a>
+      {{else}}
+      {{#if isFollowed }}
+      <form action="/following/{{profileuser.id}}?_method=DELETE" method="POST" style="display: contents;"><button
+          type="submit" class="btn btn-danger">取消追蹤</button></form>
+      {{else}}
+      <form action="/following/{{profileuser.id}}" method="POST" style="display: contents;"><button type="submit"
+          class="btn btn-primary">追蹤</button></form>
+      {{/if}}
       {{/if}}
     </div>
   </div>
 </div>
 <br>
-<div class="row border border-secondary bg-light p-1">
-  <div class="col-md-12 mt-3 mb-1"><strong>{{profileuser.Comments.length}}</strong>已評論餐廳</div>
-  <div class="col-md-12 mb-3 p-2 bg-white">
-    {{#each profileuser.Comments}}
-    <a href='/restaurants/{{this.RestaurantId}}'>
-      <img class="img-responsive center-block" src="{{this.Restaurant.image}}" style="width: 80px;margin-bottom: 5px;">
-    </a>
-    {{/each}}
+
+<div class="other-info">
+  <div class="row border border-secondary bg-light p-1 my-2">
+    <div class="col-md-12 mt-3 mb-1"><strong>{{profileuser.Comments.length}}</strong> 已評論餐廳</div>
+    <div class="col-md-12 mb-3 p-2 bg-white">
+      {{#each profileuser.Comments}}
+      <a href='/restaurants/{{this.RestaurantId}}'>
+        <img class="img-responsive center-block" src="{{this.Restaurant.image}}"
+          style="width: 80px;margin-bottom: 5px;">
+      </a>
+      {{/each}}
+    </div>
+  </div>
+
+
+  <div class="row border border-secondary bg-light p-1 my-2">
+    <div class="col-md-12 mt-3 mb-1"><strong>{{profileuser.FavoritedRestaurants.length}}</strong> 收藏的餐廳</div>
+    <div class="col-md-12 mb-3 p-2 bg-white">
+      {{#each profileuser.FavoritedRestaurants}}
+      <a href='/restaurants/{{this.id}}'>
+        <img class="img-responsive center-block" src="{{this.image}}" style="width: 80px;margin-bottom: 5px;">
+      </a>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="row border border-secondary bg-light p-1 my-2">
+    <div class="col-md-12 mt-3 mb-1"><strong>{{profileuser.Followings.length}}</strong> followings (追蹤者)</div>
+    <div class="col-md-12 mb-3 p-2 bg-white">
+      {{#each profileuser.Followings}}
+      <a href='/users/{{this.id}}'>
+        <img class="img-responsive center-block" src="{{this.image}}" style="width: 80px;margin-bottom: 5px;">
+      </a>
+      {{/each}}
+    </div>
+  </div>
+
+  <div class="row border border-secondary bg-light p-1 my-2">
+    <div class="col-md-12 mt-3 mb-1"><strong>{{profileuser.Followers.length}}</strong> followers (追隨者)</div>
+    <div class="col-md-12 mb-3 p-2 bg-white">
+      {{#each profileuser.Followers}}
+      <a href='/users/{{this.id}}'>
+        <img class="img-responsive center-block" src="{{this.image}}" style="width: 80px;margin-bottom: 5px;">
+      </a>
+      {{/each}}
+    </div>
   </div>
 </div>

@@ -70,12 +70,20 @@ const userController = {
   getUser: (req, res) => {
     return User.findByPk(req.params.id, {
       include: [
-        { model: Comment, include: [Restaurant] }
+        { model: Comment, include: [Restaurant] },
+        { model: Restaurant, as: 'FavoritedRestaurants' },
+        { model: User, as: 'Followers' },
+        { model: User, as: 'Followings' },
       ]
     })
       .then(profileuser => {
+        profileuser = profileuser.toJSON()
+        profileuser.Comments = [...new Map(profileuser.Comments.map(item =>
+          [item["RestaurantId"], item])).values()]
+        const isFollowed = req.user.Followings.map(d => d.id).includes(profileuser.id)
         return res.render('userprofile', {
-          profileuser: profileuser.toJSON(),
+          profileuser: profileuser,
+          isFollowed: isFollowed
         })
       })
   },
