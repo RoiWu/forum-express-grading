@@ -8,5 +8,6 @@ const { authenticated, authenticatedAdmin, isOwnProfile, editOwnProfile } = requ
 const passport = require('../config/passport')
 
 router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaurants)
+router.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
 
 module.exports = router
