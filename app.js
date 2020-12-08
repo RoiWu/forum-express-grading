@@ -19,6 +19,7 @@ app.engine('hbs', handlebars({ defaultLayout: 'main', extname: '.hbs', helpers: 
 app.set('view engine', 'hbs') // 設定使用 Handlebars 做為樣板引擎
 
 app.use(bodyParser.urlencoded({ extended: true }))
+app.use(bodyParser.json())
 app.use(methodOverride('_method'))
 app.use(session({ secret: 'secret', resave: false, saveUninitialized: false }))
 app.use(passport.initialize())

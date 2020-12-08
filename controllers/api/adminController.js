@@ -22,5 +22,11 @@ const adminController = {
     })
   },
 
+  postRestaurant: (req, res) => {
+    adminService.postRestaurant(req, res, (data) => {
+      console.log(data)
+      return res.json(data)
+    })
+  },
 }
 module.exports = adminController
