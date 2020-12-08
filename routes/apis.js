@@ -12,4 +12,6 @@ router.get('/admin/restaurants', authenticatedAdmin, adminController.getRestaura
 router.get('/admin/restaurants/:id', authenticatedAdmin, adminController.getRestaurant)
 router.get('/admin/categories', authenticatedAdmin, categoryController.getCategories)
 
+router.delete('/admin/restaurants/:id', adminController.deleteRestaurant)
+
 module.exports = router
