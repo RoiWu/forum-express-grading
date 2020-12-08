@@ -34,7 +34,6 @@ const adminController = {
         restaurant.destroy()
           .then((restaurant) => {
             callback({ status: 'success', message: '' })
-            //res.redirect('/admin/restaurants')
           })
       })
   },
@@ -79,8 +78,6 @@ const adminController = {
   putRestaurant: (req, res, callback) => {
     if (!req.body.name) {
       callback({ status: 'error', message: "name didn't exist" })
-      // req.flash('error_messages', "name didn't exist")
-      // return res.redirect('back')
     }
 
     const { file } = req
@@ -100,8 +97,6 @@ const adminController = {
             })
               .then((restaurant) => {
                 callback({ status: 'success', message: "restaurant was successfully created" })
-                // req.flash('success_messages', 'restaurant was successfully to update')
-                // res.redirect('/admin/restaurants')
               })
           })
       })
@@ -120,8 +115,6 @@ const adminController = {
           })
             .then((restaurant) => {
               callback({ status: 'success', message: "restaurant was successfully created" })
-              // req.flash('success_messages', 'restaurant was successfully to update')
-              // res.redirect('/admin/restaurants')
             })
         })
     }
